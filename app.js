@@ -30,9 +30,9 @@ app.use(async (ctx, next) => {
   next()
 });
 
-router.get('/api/test', showTest);
+router.get('/api/app/list', showTest);
 router.post('/api/app/add', addApp)
-
+router.delete(`/api/app/:id`, deleteApp)
 
 async function showTest(ctx) {
   const r = await appModel.list()
@@ -40,7 +40,7 @@ async function showTest(ctx) {
   ctx.response.body = {
     code: 0,
     message: 'good',
-    data:r
+    data: r
   }
 }
 
@@ -52,7 +52,16 @@ async function addApp(ctx) {
   ctx.response.body = {
     code: 0,
     message: 'good',
-    data:r
+    data: r
+  }
+}
+
+async function deleteApp(ctx) {
+  const id = ctx.params.id
+  await appModel.deleteApp(id)
+  ctx.response.body = {
+    code: 0,
+    message: 'success'
   }
 }
 
