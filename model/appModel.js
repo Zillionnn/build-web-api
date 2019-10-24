@@ -21,7 +21,7 @@ const appModel = {
         const params = fields.map(f => {
             return p[f]
         })
-        return query('insert into t_app values(name=$1,page_ids=$2,menu_ids=$3)', params)
+        return query(`INSERT INTO t_app(name, page_ids, menu_ids) values($1,$2,$3)`, params)
     }
 }
 module.exports = appModel

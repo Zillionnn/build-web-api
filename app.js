@@ -31,10 +31,23 @@ app.use(async (ctx, next) => {
 });
 
 router.get('/api/test', showTest);
+router.post('/api/app/add', addApp)
 
 
 async function showTest(ctx) {
   const r = await appModel.list()
+  console.log(r)
+  ctx.response.body = {
+    code: 0,
+    message: 'good',
+    data:r
+  }
+}
+
+async function addApp(ctx) {
+  console.log(ctx.request.body)
+  const params = ctx.request.body
+  const r = await appModel.insert(params)
   console.log(r)
   ctx.response.body = {
     code: 0,
