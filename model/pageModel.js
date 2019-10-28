@@ -14,8 +14,16 @@ const pageModel = {
     /**
    * 按app id  查页面列表
    */
-    pageList: (appId) => {
-        return query(`select * from t_page where app_id=$1`, appId)
+    pageListByAppId: (appId) => {
+        return query(`select * from t_page where app_id=$1`, [appId])
+    },
+
+    addPage: (body) => {
+        const fields = ['name', 'components', 'app_id']
+        const params = fields.map(f => {
+            return body[f]
+        })
+        return query(`insert into t_page(name,components,app_id) VALUES($1,$2,$3)`, params)
     },
 
 

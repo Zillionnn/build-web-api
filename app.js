@@ -7,6 +7,7 @@ const app = module.exports = new Koa();
 
 
 const appModel = require('./model/appModel')
+const pageModel = require('./model/pageModel')
 
 const request = require('request')
 // "database"
@@ -33,6 +34,7 @@ app.use(async (ctx, next) => {
 router.get('/api/app/list', showTest);
 router.post('/api/app/add', addApp)
 router.delete(`/api/app/:id`, deleteApp)
+router.get(`/api/app/page/:id`, appPages)
 
 async function showTest(ctx) {
   const r = await appModel.list()
@@ -65,4 +67,13 @@ async function deleteApp(ctx) {
   }
 }
 
+async function appPages(ctx) {
+  const appId = ctx.params.id
+  const r = await pageModel.pageListByAppId(appId)
+  ctx.response.body = {
+    code: 0,
+    message: '',
+    data: r
+  }
+}
 if (!module.parent) app.listen(7000);

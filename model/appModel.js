@@ -21,7 +21,7 @@ const appModel = {
         const params = fields.map(f => {
             return p[f]
         })
-        return query(`INSERT INTO t_app(name, page_ids, menu_ids) values($1,$2,$3)`, params)
+        return query(`INSERT INTO t_app(name) values($1)`, params)
     },
     
     deleteApp: (p) => {
