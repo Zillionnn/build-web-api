@@ -32,6 +32,24 @@ app.use(async (ctx, next) => {
   next()
 });
 
+async function b6(ctx) {
+  ctx.response.body = {
+    code: 0,
+    message: '',
+    data: [
+      {
+        path: '/home/foo',
+        name: 'Foo',
+      },
+      {
+        path: '/home/bar',
+        name: 'Bar'
+      }
+    ]
+  }
+}
+
+
 router.get('/api/app/list', showTest);
 router.post('/api/app/add', addApp)
 router.delete(`/api/app/:id`, deleteApp)
@@ -53,6 +71,8 @@ router.put(`/api/app/page/:page_id`, updatePageName)
 router.get(`/api/app/page/detail/:page_id`, pageDetail)
 // 更新页面的component
 router.put(`/api/app/page/components/:page_id`, updatePageComponents)
+// 路由
+router.get(`/api/v1/routers`, b6)
 
 function nResponse(ctx, code = 0, message = '', data = null) {
   ctx.response.body = {
