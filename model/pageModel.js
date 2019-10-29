@@ -15,7 +15,7 @@ const pageModel = {
    * 按app id  查页面列表
    */
     pageListByAppId: (appId) => {
-        return query(`select * from t_page where app_id=$1`, [appId])
+        return query(`select id, app_id,page_id,name,update_time from t_page where app_id=$1 order by update_time asc;`, [appId])
     },
 
     addPage: (body) => {
@@ -30,6 +30,25 @@ const pageModel = {
 
     deletePage: (p) => {
         return query(`DELETE FROM t_app WHERE id=$1`, [p])
+    },
+    updatePageName: (body) => {
+        const fields = ['page_id', 'name']
+        const params = fields.map(f => {
+            return body[f]
+        })
+        return query(`update t_page set name=$2 where page_id=$1`, params)
+    },
+
+    pageDetail: (pageId) => {
+        return query(`select * from t_page where page_id=$1`, [pageId])
+    },
+
+    updatePageComponent: (body) => {
+        const fields = ['page_id', 'components']
+        const params = fields.map(f => {
+            return body[f]
+        })
+        return query(`update t_page set components=$2 where page_id=$1`, params)
     }
 }
 module.exports = pageModel

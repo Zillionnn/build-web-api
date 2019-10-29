@@ -35,7 +35,6 @@ app.use(async (ctx, next) => {
 router.get('/api/app/list', showTest);
 router.post('/api/app/add', addApp)
 router.delete(`/api/app/:id`, deleteApp)
-router.get(`/api/app/page/:id`, appPages)
 // 菜单列表
 router.get(`/api/app/menu/:id`, menuList)
 // 添加一个菜单
@@ -44,11 +43,21 @@ router.post(`/api/app/menu/add`, addMenu)
 router.put(`/api/app/menu/:id`, updateMenu)
 // 删除一个菜单
 router.delete(`/api/app/menu/:id`, deleteMenu)
+// 创建一个页面
+router.post(`/api/createPage`, createPage)
+// 页面列表
+router.get(`/api/app/page/:id`, appPages)
+// 更新页面名字
+router.put(`/api/app/page/:page_id`, updatePageName)
+// 页面detail
+router.get(`/api/app/page/detail/:page_id`, pageDetail)
+// 更新页面的component
+router.put(`/api/app/page/components/:page_id`, updatePageComponents)
 
-function nResponse(ctx, code, message, data=null) {
+function nResponse(ctx, code = 0, message = '', data = null) {
   ctx.response.body = {
-    code: 0,
-    message: '',
+    code: code,
+    message: message,
     data: data
   }
 }
@@ -110,15 +119,41 @@ async function addMenu(ctx) {
   nResponse(ctx, 0, '')
 }
 
-async function updateMenu(ctx){
+async function updateMenu(ctx) {
   const body = ctx.request.body
   body.menu_id = ctx.params.id
   const r = await menuMoedel.updateMenu(body)
-  nResponse(ctx,0.,'')
+  nResponse(ctx, 0., '')
 }
-async function deleteMenu(ctx){
+async function deleteMenu(ctx) {
   const menu_id = ctx.params.id
   const r = await menuMoedel.deleteMenu(menu_id)
   nResponse(ctx, 0, '')
+}
+
+async function createPage(ctx) {
+  const body = ctx.request.body
+  const r = await pageModel.addPage(body)
+  nResponse(ctx, 0, '')
+}
+
+async function updatePageName(ctx) {
+  const body = ctx.request.body
+  body.page_id = ctx.params.page_id
+  const r = await pageModel.updatePageName(body)
+  nResponse(ctx, 0, '', r)
+}
+
+async function pageDetail(ctx) {
+  const id = ctx.params.page_id
+  const r = await pageModel.pageDetail(id)
+  nResponse(ctx, 0, '', r[0])
+}
+
+async function updatePageComponents(ctx) {
+  const body = ctx.request.body
+  body.page_id = ctx.params.page_id
+  const r = await pageModel.updatePageComponent(body)
+  nResponse(ctx, 0, '', r)
 }
 if (!module.parent) app.listen(7000);
