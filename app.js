@@ -40,7 +40,9 @@ router.get(`/api/app/page/:id`, appPages)
 router.get(`/api/app/menu/:id`, menuList)
 // 添加一个菜单
 router.post(`/api/app/menu/add`, addMenu)
+// 更新菜单
 router.put(`/api/app/menu/:id`, updateMenu)
+// 删除一个菜单
 router.delete(`/api/app/menu/:id`, deleteMenu)
 
 function nResponse(ctx, code, message, data=null) {
@@ -110,12 +112,13 @@ async function addMenu(ctx) {
 
 async function updateMenu(ctx){
   const body = ctx.request.body
+  body.menu_id = ctx.params.id
   const r = await menuMoedel.updateMenu(body)
   nResponse(ctx,0.,'')
 }
 async function deleteMenu(ctx){
-  const body = ctx.request.body
-  const r = await menuMoedel.deleteMenu(body)
+  const menu_id = ctx.params.id
+  const r = await menuMoedel.deleteMenu(menu_id)
   nResponse(ctx, 0, '')
 }
 if (!module.parent) app.listen(7000);
