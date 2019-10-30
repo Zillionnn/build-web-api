@@ -33,10 +33,13 @@ app.use(async (ctx, next) => {
 });
 
 
-
+// ################################### app ########################
 router.get('/api/app/list', showTest);
 router.post('/api/app/add', addApp)
 router.delete(`/api/app/:id`, deleteApp)
+router.get(`/api/app/:app_id`, getAppById)
+router.put(`/api/app/:app_id`, updateApp)
+
 // 菜单列表
 router.get(`/api/app/menu/:id`, menuList)
 // 添加一个菜单
@@ -183,9 +186,22 @@ async function updatePageComponents(ctx) {
   nResponse(ctx, 0, '', r)
 }
 
-async function deletePage(ctx){
-  const page_id  = ctx.params.page_id
-  const r  = await pageModel.deletePageByPageId(page_id)
+async function deletePage(ctx) {
+  const page_id = ctx.params.page_id
+  const r = await pageModel.deletePageByPageId(page_id)
   nResponse(ctx)
 }
+
+async function getAppById(ctx) {
+  const appId = ctx.params.app_id
+  const r = await appModel.appInfo(appId)
+  nResponse(ctx, 0, 'success', r[0])
+}
+
+async function updateApp(ctx) {
+  const app = ctx.request.body
+  const r = await appModel.updateApp(app)
+  nResponse(ctx, 0, 'success', r[0])
+}
+
 if (!module.parent) app.listen(7000);
