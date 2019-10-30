@@ -32,6 +32,36 @@ app.use(async (ctx, next) => {
   next()
 });
 
+
+
+router.get('/api/app/list', showTest);
+router.post('/api/app/add', addApp)
+router.delete(`/api/app/:id`, deleteApp)
+// 菜单列表
+router.get(`/api/app/menu/:id`, menuList)
+// 添加一个菜单
+router.post(`/api/app/menu/add`, addMenu)
+// 更新菜单
+router.put(`/api/app/menu/:id`, updateMenu)
+// 删除一个菜单
+router.delete(`/api/app/menu/:id`, deleteMenu)
+// ################################页面##########################
+// 创建一个页面
+router.post(`/api/createPage`, createPage)
+// 页面列表
+router.get(`/api/app/page/:id`, appPages)
+// 更新页面名字
+router.put(`/api/app/page/:page_id`, updatePageName)
+// 页面detail
+router.get(`/api/app/page/detail/:page_id`, pageDetail)
+// 更新页面的component
+router.put(`/api/app/page/components/:page_id`, updatePageComponents)
+// 删除一个页面
+router.delete(`/api/app/page/:page_id`, deletePage)
+
+// ############################路由######################
+router.get(`/api/v1/routers`, b6)
+
 async function b6(ctx) {
   ctx.response.body = {
     code: 0,
@@ -49,30 +79,6 @@ async function b6(ctx) {
   }
 }
 
-
-router.get('/api/app/list', showTest);
-router.post('/api/app/add', addApp)
-router.delete(`/api/app/:id`, deleteApp)
-// 菜单列表
-router.get(`/api/app/menu/:id`, menuList)
-// 添加一个菜单
-router.post(`/api/app/menu/add`, addMenu)
-// 更新菜单
-router.put(`/api/app/menu/:id`, updateMenu)
-// 删除一个菜单
-router.delete(`/api/app/menu/:id`, deleteMenu)
-// 创建一个页面
-router.post(`/api/createPage`, createPage)
-// 页面列表
-router.get(`/api/app/page/:id`, appPages)
-// 更新页面名字
-router.put(`/api/app/page/:page_id`, updatePageName)
-// 页面detail
-router.get(`/api/app/page/detail/:page_id`, pageDetail)
-// 更新页面的component
-router.put(`/api/app/page/components/:page_id`, updatePageComponents)
-// 路由
-router.get(`/api/v1/routers`, b6)
 
 function nResponse(ctx, code = 0, message = '', data = null) {
   ctx.response.body = {
@@ -175,5 +181,11 @@ async function updatePageComponents(ctx) {
   body.page_id = ctx.params.page_id
   const r = await pageModel.updatePageComponent(body)
   nResponse(ctx, 0, '', r)
+}
+
+async function deletePage(ctx){
+  const page_id  = ctx.params.page_id
+  const r  = await pageModel.deletePageByPageId(page_id)
+  nResponse(ctx)
 }
 if (!module.parent) app.listen(7000);

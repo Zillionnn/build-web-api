@@ -49,6 +49,10 @@ const pageModel = {
             return body[f]
         })
         return query(`update t_page set components=$2 where page_id=$1`, params)
+    },
+
+    deletePageByPageId(pageId) {
+        return query(`delete from t_page where page_id=${pageId}`)
     }
 }
 module.exports = pageModel
