@@ -65,6 +65,21 @@ router.delete(`/api/app/page/:page_id`, deletePage)
 // ############################路由######################
 router.get(`/api/v1/routers`, b6)
 
+// 图表数据格式
+router.get(`/api/v1/chartdata`, chartData)
+async function chartData(ctx) {
+  const data = [
+    ['Mon', 820],
+    ['Ton', 100],
+    ['Wed', 200],
+    ['Thu', 300],
+    ['Fri', 400],
+    ['Sat', 50],
+    ['Sun', 24],
+  ]
+  nResponse(ctx, 0, 'success', data)
+}
+
 async function b6(ctx) {
   ctx.response.body = {
     code: 0,
