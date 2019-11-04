@@ -71,22 +71,22 @@ router.get(`/api/v1/chartdata/pie`, chartDataPie)
 
 async function chartDataPie(ctx) {
   const data = [
-    100, 120
+   10,20
   ]
-  nResponse(ctx, 0, 'success', data)
+	ctx.response.body=data
 }
 
-async function chartData(ctx) {
-  const data = [
-    ['Mon', 820],
-    ['Ton', 100],
-    ['Wed', 200],
-    ['Thu', 300],
-    ['Fri', 400],
-    ['Sat', 50],
-    ['Sun', 24],
+async function chartData (ctx) {
+	const data = [
+    ['Mon', 820,4],
+    ['Ton', 100,44],
+    ['Wed', 200,67],
+    ['Thu', 300,76],
+    ['Fri', 400,2],
+    ['Sat', 50,0],
+    ['Sun', 24,99],
   ]
-  nResponse(ctx, 0, 'success', data)
+	ctx.response.body=data
 }
 
 async function b6(ctx) {
