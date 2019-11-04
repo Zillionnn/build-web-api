@@ -69,10 +69,9 @@ router.get(`/api/v1/routers`, b6)
 router.get(`/api/v1/chartdata`, chartData)
 router.get(`/api/v1/chartdata/pie`, chartDataPie)
 
-async function chartDataPie(ctx){
+async function chartDataPie(ctx) {
   const data = [
-    {value: 335, name: 'foo'},
-    {value: 310, name: 'bar'}
+    100, 120
   ]
   nResponse(ctx, 0, 'success', data)
 }
