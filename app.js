@@ -67,6 +67,16 @@ router.get(`/api/v1/routers`, b6)
 
 // 图表数据格式
 router.get(`/api/v1/chartdata`, chartData)
+router.get(`/api/v1/chartdata/pie`, chartDataPie)
+
+async function chartDataPie(ctx){
+  const data = [
+    {value: 335, name: 'foo'},
+    {value: 310, name: 'bar'}
+  ]
+  nResponse(ctx, 0, 'success', data)
+}
+
 async function chartData(ctx) {
   const data = [
     ['Mon', 820],
