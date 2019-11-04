@@ -67,13 +67,21 @@ router.get(`/api/v1/routers`, b6)
 
 // 图表数据格式
 router.get(`/api/v1/chartdata`, chartData)
-router.get(`/api/v1/chartdata/pie`, chartDataPie)
+router.get(`/api/v1/chartdata/pie`, chartDataPietaobao)
+router.get(`/api/v1/pie`, chartDataPie)
 
-async function chartDataPie(ctx) {
+async function chartDataPietaobao(ctx) {
   const data = [
    10,20
   ]
 	ctx.response.body=data
+}
+async function chartDataPie(ctx) {
+  const data = [
+  {value:10,name:'系列1'},
+  {value:30,name:'系列2'}
+  ]
+	nResponse(ctx, 0, '', data)
 }
 
 async function chartData (ctx) {
