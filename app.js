@@ -69,6 +69,19 @@ router.get(`/api/v1/routers`, b6)
 router.get(`/api/v1/chartdata`, chartData)
 router.get(`/api/v1/chartdata/pie`, chartDataPietaobao)
 router.get(`/api/v1/pie`, chartDataPie)
+router.get(`/api/v1/table/data`, tableData)
+
+async function tableData(ctx){
+  ctx.response.body={
+    total:12,
+    list:[
+      [1,2,3],
+      [1,2,3],
+      [1,2,3],
+      [1,2,3]
+    ]
+  }
+}
 
 async function chartDataPietaobao(ctx) {
   const data = [
