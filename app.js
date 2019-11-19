@@ -239,8 +239,30 @@ async function deletePage(ctx) {
 
 async function getAppById(ctx) {
   const appId = ctx.params.app_id
-  const r = await appModel.appInfo(appId)
-  nResponse(ctx, 0, 'success', r[0])
+  const result = await appModel.appInfo(appId)
+  const r = result[0]
+  let app = {
+    id: r.id,
+    name: r.name,
+    update_time: r.update_time,
+    layout: r.layout,
+    menuConfig: {
+      top: {
+        backgroundColor: r.top_bg_color,
+        appName: r.app_name,
+        logo: r.logo
+      },
+      left: {
+        backgroundColor: r.side_bg_color,
+        menu: {
+          backgroundColor: r.side_bg_color,
+          textColor: r.side_text_color,
+          textActiveColor: r.side_text_active_color
+        }
+      }
+    }
+  }
+  nResponse(ctx, 0, 'success', app)
 }
 
 async function updateApp(ctx) {
