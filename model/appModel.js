@@ -51,8 +51,8 @@ const appModel = {
             side_bg_color=$8,
             side_text_color=$9,
             side_text_active_color=$10,
-            app_name_color=$11,
-         where id=$1`, params)
+            app_name_color=$11
+            where id=$1`, params)
     },
     deleteApp: (p) => {
         return query(`DELETE FROM t_app WHERE id=$1`, [p])
