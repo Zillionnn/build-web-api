@@ -41,7 +41,9 @@ const appModel = {
         const params = fields.map(f => {
             return p[f]
         })
-        return query(`update t_app set name=$2,layout=$3,        	
+        return query(`update t_app set 
+        name=$2,
+        layout=$3,        	
             top_bg_color=$4,
             logo=$5,
             app_name=$6,	
