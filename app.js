@@ -250,6 +250,7 @@ async function getAppById(ctx) {
       top: {
         backgroundColor: r.top_bg_color,
         appName: r.app_name,
+        appNameColor: r.app_name_color,
         logo: r.logo
       },
       left: {
