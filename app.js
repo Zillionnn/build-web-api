@@ -67,17 +67,47 @@ router.get(`/api/v1/routers`, b6)
 
 // 图表数据格式
 router.get(`/api/v1/chartdata`, chartData)
-async function chartData(ctx) {
+router.get(`/api/v1/chartdata/pie`, chartDataPietaobao)
+router.get(`/api/v1/pie`, chartDataPie)
+router.get(`/api/v1/table/data`, tableData)
+
+async function tableData(ctx){
+  ctx.response.body={
+    total:12,
+    list:[
+      [1,2,3],
+      [321,2,3],
+      [1,52,3],
+      [15,22,3]
+    ]
+  }
+}
+
+async function chartDataPietaobao(ctx) {
   const data = [
-    ['Mon', 820],
-    ['Ton', 100],
-    ['Wed', 200],
-    ['Thu', 300],
-    ['Fri', 400],
-    ['Sat', 50],
-    ['Sun', 24],
+   10,20
   ]
-  nResponse(ctx, 0, 'success', data)
+	ctx.response.body=data
+}
+async function chartDataPie(ctx) {
+  const data = [
+  {value:10,name:'系列1'},
+  {value:30,name:'系列2'}
+  ]
+	nResponse(ctx, 0, '', data)
+}
+
+async function chartData (ctx) {
+	const data = [
+    ['Mon', 820,4],
+    ['Ton', 100,44],
+    ['Wed', 200,67],
+    ['Thu', 300,76],
+    ['Fri', 400,2],
+    ['Sat', 50,0],
+    ['Sun', 24,99],
+  ]
+	ctx.response.body=data
 }
 
 async function b6(ctx) {
@@ -209,8 +239,31 @@ async function deletePage(ctx) {
 
 async function getAppById(ctx) {
   const appId = ctx.params.app_id
-  const r = await appModel.appInfo(appId)
-  nResponse(ctx, 0, 'success', r[0])
+  const result = await appModel.appInfo(appId)
+  const r = result[0]
+  let app = {
+    id: r.id,
+    name: r.name,
+    update_time: r.update_time,
+    layout: r.layout,
+    menuConfig: {
+      top: {
+        backgroundColor: r.top_bg_color,
+        appName: r.app_name,
+        appNameColor: r.app_name_color,
+        logo: r.logo
+      },
+      left: {
+        backgroundColor: r.side_bg_color,
+        menu: {
+          backgroundColor: r.side_bg_color,
+          textColor: r.side_text_color,
+          textActiveColor: r.side_text_active_color
+        }
+      }
+    }
+  }
+  nResponse(ctx, 0, 'success', app)
 }
 
 async function updateApp(ctx) {
