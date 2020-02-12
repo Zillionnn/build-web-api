@@ -1,6 +1,6 @@
 CREATE TABLE public.t_app
 (
-    id integer NOT NULL DEFAULT nextval('t_app_id_seq'::regclass),
+    id serial,
     name text COLLATE pg_catalog."default",
     page_ids text[] COLLATE pg_catalog."default",
     update_time timestamp with time zone DEFAULT now(),
@@ -10,8 +10,8 @@ CREATE TABLE public.t_app
 
 CREATE TABLE public.t_page
 (
-    id integer NOT NULL DEFAULT nextval('t_page_id_seq'::regclass),
-    page_id integer NOT NULL DEFAULT nextval('t_page_page_id_seq'::regclass),
+    id serial,
+    page_id integer,
     components text[] COLLATE pg_catalog."default",
     update_time timestamp with time zone DEFAULT now(),
     name text COLLATE pg_catalog."default",
@@ -20,8 +20,8 @@ CREATE TABLE public.t_page
 
 CREATE TABLE public.t_menu
 (
-    id integer NOT NULL DEFAULT nextval('t_menu_id_seq'::regclass),
-    menu_id integer NOT NULL DEFAULT nextval('t_menu_menu_id_seq'::regclass),
+    id serial,
+    menu_id integer,
     name text COLLATE pg_catalog."default",
     CONSTRAINT t_menu_pkey PRIMARY KEY (id)
 );
