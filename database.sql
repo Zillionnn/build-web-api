@@ -23,6 +23,7 @@ CREATE TABLE public.t_menu
     id integer NOT NULL DEFAULT nextval('t_menu_id_seq'::regclass),
     menu_id integer NOT NULL DEFAULT nextval('t_menu_menu_id_seq'::regclass),
     name text COLLATE pg_catalog."default",
+    link text ,
     CONSTRAINT t_menu_pkey PRIMARY KEY (id)
 );
 

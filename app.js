@@ -97,6 +97,7 @@ async function chartDataPie(ctx) {
 	nResponse(ctx, 0, '', data)
 }
 
+// 柱状图, 折线图 数据格式
 async function chartData (ctx) {
 	const data = [
     ['Mon', 820,4],
